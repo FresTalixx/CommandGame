@@ -40,23 +40,66 @@ public:
 		return id;
 	}
 
-	void setExit(Room* anotherRoom, string direction) {
-		direction = toLower(direction);
+	string getExit(string direction) const {
+		
+	}
 
-		if (direction == "north") {
+	void setExit(Room* anotherRoom, const string direction) {
+		string casedDirection = toLower(direction);
+
+		if (casedDirection == "north") {
 			northExit = anotherRoom;
 		}
-		else if (direction == "east") {
+		else if (casedDirection == "east") {
 			eastExit = anotherRoom;
 		}
-		else if (direction == "south") {
+		else if (casedDirection == "south") {
 			southExit = anotherRoom;
 		}
-		else if (direction == "west") {
+		else if (casedDirection == "west") {
 			westExit = anotherRoom;
 		}
 		else {
 			throw invalid_argument("Invalid direction");
 		}
 	}
+
+	bool isExitExist(const string& direction) {
+		string casedDirection = toLower(direction);
+
+		if (casedDirection == "north") {
+			return northExit;
+		}
+		else if (casedDirection == "east") {
+			return eastExit;
+		}
+		else if (casedDirection == "south") {
+			return southExit;
+		}
+		else if (casedDirection == "west") {
+			return westExit;
+		}
+		else {
+			throw invalid_argument("Invalid direction");
+		}
+	}
+		Room* changeRoom(const string& direction) {
+			string casedDirection = toLower(direction);
+			if (casedDirection == "north") {
+				return northExit;
+			}
+			else if (casedDirection == "east") {
+				return eastExit;
+			}
+			else if (casedDirection == "south") {
+				return southExit;
+			}
+			else if (casedDirection == "west") {
+				return westExit;
+			}
+			else {
+				throw invalid_argument("Invalid direction");
+			}
+		}
+	
 };

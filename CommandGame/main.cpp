@@ -4,15 +4,10 @@
 using namespace std;
 
 int main() {
-	//Game game;
-	//game.start();
+	Game game;
+	game.start();
+
+	return 0;
 	
-	std::string s = "go north";
-	std::string delimiter = " ";
-
-	vector<string> temp = split(s, delimiter); // ["scott", "tiger", "mushroom"]
-
-	for (string& line : temp) {
-		cout << line << " ";
-	}
+	
 }

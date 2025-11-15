@@ -36,4 +36,30 @@ public:
 	Room* getCurrentRoom() const {
 		return currentRoom;
 	}
+
+	void setCurrentRoom(Room* room) {
+		this->currentRoom = room;
+	}
+
+	void moveTo(string direction) {
+		string casedDirection = toLower(direction);
+		
+		if (currentRoom->isExitExist(casedDirection)) {
+			if (casedDirection == "north") {
+				currentRoom = currentRoom->changeRoom("north");
+			}
+			else if (casedDirection == "south") {
+				currentRoom = currentRoom->changeRoom("south");
+			}
+			else if (casedDirection == "east") {
+				currentRoom = currentRoom->changeRoom("east");
+			}
+			else if (casedDirection == "west") {
+				currentRoom = currentRoom->changeRoom("west");
+			}
+			else {
+				cout << "Invalid direction!" << endl;
+			}
+		}
+	}
 };

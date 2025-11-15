@@ -91,14 +91,38 @@ public:
 			cout << "Enter your command: \n";
 			getline(cin, inputString);
 
-
+			handleInput(inputString);
 
 		}
 		
 	}
 
 	void handleInput(string& inputString) {
+		vector<string> splittedString = split(inputString, " ");
 
+		if (splittedString[0] == "go") {
+			string direction = toLower(splittedString[1]);
+
+			if (direction == "north") {
+				player.moveTo("north");
+			}
+			else if (direction == "south") {
+				player.moveTo("south");
+			}
+			else if (direction == "east") {
+				player.moveTo("east");
+			}
+			else if (direction == "west") {
+				player.moveTo("west");
+			}
+			else {
+				SetColor(RED, BLACK);
+				cout << "Invalid direction! Use north, south, east, or west.\n";
+				SetColor(WHITE, BLACK);
+				cout << "Press any key to continue...\n";
+				_getch();
+			}
+		}
 	}
 };
 
