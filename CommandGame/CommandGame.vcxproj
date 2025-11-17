@@ -124,11 +124,19 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="consoleCommands.cpp" />
+    <ClCompile Include="keyboardMenuControll.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Room.cpp" />
+    <ClCompile Include="ActionGo.cpp" />
+    <ClCompile Include="Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ActionGo.h" />
+    <ClInclude Include="ActionSystem.h" />
     <ClInclude Include="consoleCommands.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="keyboardMenuControll.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Room.h" />
     <ClInclude Include="Utils.h" />

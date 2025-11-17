@@ -15,51 +15,17 @@ private:
 	Room* currentRoom;
 
 public:
-	Player() {
-		this->name = "Hero";
-		this->currentRoom = nullptr;
-	}
+	Player();
 
-	Player(string name, Room* currentRoom) {
-		this->name = name;
-		this->currentRoom = currentRoom;
-	}
+	Player(string name, Room* currentRoom);
 
-	string getName() const {
-		return name;
-	}
+	string getName() const;
 
-	int getHealth() const {
-		return health;
-	}
+	int getHealth() const;
 
-	Room* getCurrentRoom() const {
-		return currentRoom;
-	}
+	Room* getCurrentRoom() const;
 
-	void setCurrentRoom(Room* room) {
-		this->currentRoom = room;
-	}
+	void setCurrentRoom(Room* room);
 
-	void moveTo(string direction) {
-		string casedDirection = toLower(direction);
-		
-		if (currentRoom->isExitExist(casedDirection)) {
-			if (casedDirection == "north") {
-				currentRoom = currentRoom->changeRoom("north");
-			}
-			else if (casedDirection == "south") {
-				currentRoom = currentRoom->changeRoom("south");
-			}
-			else if (casedDirection == "east") {
-				currentRoom = currentRoom->changeRoom("east");
-			}
-			else if (casedDirection == "west") {
-				currentRoom = currentRoom->changeRoom("west");
-			}
-			else {
-				cout << "Invalid direction!" << endl;
-			}
-		}
-	}
+	void moveTo(string direction);
 };

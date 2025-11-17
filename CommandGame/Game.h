@@ -4,11 +4,16 @@
 #include <string>
 #include <vector>
 #include <conio.h>
+#include <algorithm>
 
 #include "consoleCommands.h"
 #include "Player.h"
 #include "Room.h"
 #include "Utils.h"
+#include "ActionSystem.h"
+#include "ActionGo.h"
+#include "keyboardMenuControll.h"
+
 
 using namespace std;
 
@@ -23,16 +28,35 @@ public:
 	}
 
 	void init() {
-		// initialising rooms
-		Room* corridor = new Room("Corridor", "A long, narrow corridor with flickering lights.");
-		Room* kitchen = new Room("Kitchen", "A messy kitchen with dirty dishes piled up.");
-		Room* library = new Room("Library", "A quiet library filled with dusty books.");
-		Room* garden = new Room("Garden", "A beautiful garden with blooming flowers.");
-		Room* basement = new Room("Basement", "A dark basement with a musty smell.");
-		Room* attic = new Room("Attic", "A cluttered attic filled with old furniture.");
-		Room* bedroom = new Room("Bedroom", "A cozy bedroom with a comfortable bed.");
-		Room* bathroom = new Room("Bathroom", "A clean bathroom with a shiny mirror.");
-		Room* exitRoom = new Room("Exit", "A bright exit leading outside.");
+		//initialising player
+		player = Player("Hero", nullptr);
+
+
+		/* initialising rooms*/
+		ActionGo goNorth(&player, "north", "Go North");
+		ActionGo goEast(&player, "east", "Go East");
+		ActionGo goSouth(&player, "south", "Go South");
+		ActionGo goWest(&player, "west", "Go West");
+
+		vector<Action> actions = {
+			goNorth,
+			goEast,
+			goSouth,
+			goWest
+		};
+
+		Room* corridor = new Room("Corridor", "A long, narrow corridor with flickering lights.", actions);
+		Room* kitchen = new Room("Kitchen", "A messy kitchen with dirty dishes piled up.", actions);
+		Room* library = new Room("Library", "A quiet library filled with dusty books.", actions);
+		Room* garden = new Room("Garden", "A beautiful garden with blooming flowers.", actions);
+		Room* basement = new Room("Basement", "A dark basement with a musty smell.", actions);
+		Room* attic = new Room("Attic", "A cluttered attic filled with old furniture.", actions);
+		Room* bedroom = new Room("Bedroom", "A cozy bedroom with a comfortable bed.", actions);
+		Room* bathroom = new Room("Bathroom", "A clean bathroom with a shiny mirror.", actions);
+		Room* exitRoom = new Room("Exit", "A bright exit leading outside.", actions);
+
+
+		player.setCurrentRoom(corridor);
 
 		//connecting rooms
 		corridor->setExit(kitchen, "east");
@@ -60,9 +84,6 @@ public:
 
 		basement->setExit(exitRoom, "north");
 
-
-		//initialising player
-		player = Player("Hero", corridor);
 	}
 
 	void start() {
@@ -88,10 +109,23 @@ public:
 			cout << "You are in: " << player.getCurrentRoom()->getName() << endl;
 			cout << player.getCurrentRoom()->getDescription() << endl;
 
-			cout << "Enter your command: \n";
-			getline(cin, inputString);
+			cout << endl << endl;
 
-			handleInput(inputString);
+			auto actions = player.getCurrentRoom()->actions();
+			vector<string> actionsDescriptions;
+
+			for (auto a : actions) {
+				actionsDescriptions.push_back(a.getDescription());
+			}
+
+			SetColor(GREEN, BLACK);
+			
+			int choice = menuControl(actionsDescriptions, 0, 5, GREEN, BLACK, RED, BLACK);
+
+			/*cout << "Enter your command: \n";
+			getline(cin, inputString);
+			*/
+			handleInput(actionsDescriptions[choice - 1]);
 
 		}
 		
@@ -100,7 +134,7 @@ public:
 	void handleInput(string& inputString) {
 		vector<string> splittedString = split(inputString, " ");
 
-		if (splittedString[0] == "go") {
+		if (toLower(splittedString[0]) == "go") {
 			string direction = toLower(splittedString[1]);
 
 			if (direction == "north") {
