@@ -124,6 +124,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="consoleCommands.cpp" />
+    <ClCompile Include="Item.h" />
     <ClCompile Include="keyboardMenuControll.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -136,6 +137,7 @@
     <ClInclude Include="ActionSystem.h" />
     <ClInclude Include="consoleCommands.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="Key.h" />
     <ClInclude Include="keyboardMenuControll.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Room.h" />
