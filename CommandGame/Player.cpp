@@ -5,11 +5,13 @@
 Player::Player() {
 	this->name = "Hero";
 	this->currentRoom = nullptr;
+	this->health = 100;
 }
 
 Player::Player(string name, Room* currentRoom) {
 	this->name = name;
 	this->currentRoom = currentRoom;
+	this->health = 100;
 }
 
 string Player::getName() const {
@@ -32,20 +34,22 @@ void Player::moveTo(string direction) {
 	string casedDirection = toLower(direction);
 
 	if (currentRoom->isExitExist(casedDirection)) {
-		if (casedDirection == "north") {
-			currentRoom = currentRoom->changeRoom("north");
+		if (currentRoom->isRoomLocked()) {
+			string requiredKey = currentRoom->getKey();
+			if (find(inventory.getItems().begin(), inventory.getItems().end(), requiredKey)
+				!= inventory.getItems().end()) {
+
+				currentRoom->setLocked(false);
+			}
+			else {
+				cout << currentRoom->getLockedDescription();
+				return;
+			}
 		}
-		else if (casedDirection == "south") {
-			currentRoom = currentRoom->changeRoom("south");
-		}
-		else if (casedDirection == "east") {
-			currentRoom = currentRoom->changeRoom("east");
-		}
-		else if (casedDirection == "west") {
-			currentRoom = currentRoom->changeRoom("west");
-		}
-		else {
-			cout << "Invalid direction!" << endl;
-		}
+		currentRoom = currentRoom->changeRoom(casedDirection);
 	}
+}
+
+Inventory Player::getInventory() {
+	return inventory;
 }

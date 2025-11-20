@@ -13,6 +13,7 @@
 #include "ActionSystem.h"
 #include "ActionGo.h"
 #include "keyboardMenuControll.h"
+#include "ActionTake.h"
 
 
 using namespace std;
@@ -33,19 +34,23 @@ public:
 
 
 		/* initialising rooms*/
-		ActionGo goNorth(&player, "north", "Go North");
-		ActionGo goEast(&player, "east", "Go East");
-		ActionGo goSouth(&player, "south", "Go South");
-		ActionGo goWest(&player, "west", "Go West");
+		ActionGo* goNorth = new ActionGo(&player, "north", "Go North");
+		ActionGo* goEast = new ActionGo(&player, "east", "Go East");
+		ActionGo* goSouth = new ActionGo(&player, "south", "Go South");
+		ActionGo* goWest = new ActionGo(&player, "west", "Go West");
+		ActionTake* takeGoldenKey = new ActionTake(&player);
 
-		vector<Action> actions = {
+		string goldenKeyKitchen = "Golden key";
+
+		vector<Action*> actions = {
 			goNorth,
 			goEast,
 			goSouth,
-			goWest
+			goWest,
+			takeGoldenKey
 		};
 
-		Room* corridor = new Room("Corridor", "A long, narrow corridor with flickering lights.", actions);
+		Room* corridor = new Room("Corridor", "A long, narrow corridor with flickering lights.", actions );
 		Room* kitchen = new Room("Kitchen", "A messy kitchen with dirty dishes piled up.", actions);
 		Room* library = new Room("Library", "A quiet library filled with dusty books.", actions);
 		Room* garden = new Room("Garden", "A beautiful garden with blooming flowers.", actions);
@@ -55,8 +60,10 @@ public:
 		Room* bathroom = new Room("Bathroom", "A clean bathroom with a shiny mirror.", actions);
 		Room* exitRoom = new Room("Exit", "A bright exit leading outside.", actions);
 
-
 		player.setCurrentRoom(corridor);
+
+		kitchen->setItem(goldenKeyKitchen);
+		exitRoom->setKey(goldenKeyKitchen);
 
 		//connecting rooms
 		corridor->setExit(kitchen, "east");
@@ -109,54 +116,31 @@ public:
 			cout << "You are in: " << player.getCurrentRoom()->getName() << endl;
 			cout << player.getCurrentRoom()->getDescription() << endl;
 
+			cout << "Inventory: ";
+			for (auto& item : player.getInventory().getItems()) {
+				cout << item << " ";
+			}
+
 			cout << endl << endl;
 
 			auto actions = player.getCurrentRoom()->actions();
 			vector<string> actionsDescriptions;
 
 			for (auto a : actions) {
-				actionsDescriptions.push_back(a.getDescription());
+				actionsDescriptions.push_back(a->getDescription());
 			}
 
 			SetColor(GREEN, BLACK);
 			
 			int choice = menuControl(actionsDescriptions, 0, 5, GREEN, BLACK, RED, BLACK);
 
-			/*cout << "Enter your command: \n";
-			getline(cin, inputString);
-			*/
-			handleInput(actionsDescriptions[choice - 1]);
+			actions[choice - 1]->execute();
+			_getch();
 
 		}
 		
 	}
 
-	void handleInput(string& inputString) {
-		vector<string> splittedString = split(inputString, " ");
-
-		if (toLower(splittedString[0]) == "go") {
-			string direction = toLower(splittedString[1]);
-
-			if (direction == "north") {
-				player.moveTo("north");
-			}
-			else if (direction == "south") {
-				player.moveTo("south");
-			}
-			else if (direction == "east") {
-				player.moveTo("east");
-			}
-			else if (direction == "west") {
-				player.moveTo("west");
-			}
-			else {
-				SetColor(RED, BLACK);
-				cout << "Invalid direction! Use north, south, east, or west.\n";
-				SetColor(WHITE, BLACK);
-				cout << "Press any key to continue...\n";
-				_getch();
-			}
-		}
-	}
+	
 };
 

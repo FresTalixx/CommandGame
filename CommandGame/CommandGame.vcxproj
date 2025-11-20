@@ -123,6 +123,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ActionTake.cpp" />
     <ClCompile Include="consoleCommands.cpp" />
     <ClCompile Include="Item.h" />
     <ClCompile Include="keyboardMenuControll.cpp" />
@@ -135,9 +136,10 @@
   <ItemGroup>
     <ClInclude Include="ActionGo.h" />
     <ClInclude Include="ActionSystem.h" />
+    <ClInclude Include="ActionTake.h" />
     <ClInclude Include="consoleCommands.h" />
     <ClInclude Include="Game.h" />
-    <ClInclude Include="Key.h" />
+    <ClInclude Include="Inventory.h" />
     <ClInclude Include="keyboardMenuControll.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Room.h" />

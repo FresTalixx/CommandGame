@@ -39,6 +39,9 @@
     <ClCompile Include="Item.h">
       <Filter>Header Files</Filter>
     </ClCompile>
+    <ClCompile Include="ActionTake.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -65,7 +68,10 @@
     <ClInclude Include="keyboardMenuControll.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Key.h">
+    <ClInclude Include="Inventory.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ActionTake.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

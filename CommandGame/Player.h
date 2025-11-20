@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include "Inventory.h"
 
 #include "Room.h"
 
@@ -11,6 +12,7 @@ class Player {
 private:
 	string name;
 	int health = 100;
+	Inventory inventory;
 
 	Room* currentRoom;
 
@@ -28,4 +30,6 @@ public:
 	void setCurrentRoom(Room* room);
 
 	void moveTo(string direction);
+
+	Inventory getInventory();
 };

@@ -3,12 +3,15 @@
 #include <string>
 #include <vector>
 
-Room::Room(string name, string description, vector<Action> allActions) : name{ name }, description{ description } {
+Room::Room(string name, string description, vector<Action*> allActions) : name{ name }, description{ description } {
 	northExit = nullptr;
 	southExit = nullptr;
 	eastExit = nullptr;
 	westExit = nullptr;
 	this->allActions = allActions;
+	isLocked = false;
+	restedItem = "";
+
 }
 
 string Room::getName() const {
@@ -43,7 +46,7 @@ Room* Room::getExit(string direction) {
 	}
 }
 
-void Room::setExit(Room* anotherRoom, const string direction) {
+void Room::setExit(Room* anotherRoom, const string& direction) {
 	string casedDirection = toLower(direction);
 
 	if (casedDirection == "north") {
