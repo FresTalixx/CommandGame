@@ -66,7 +66,7 @@ void Room::setExit(Room* anotherRoom, const string& direction) {
 	}
 }
 
-bool Room::isExitExist(const string& direction) {
+bool Room::isExitExist(const string& direction) const  {
 	string casedDirection = toLower(direction);
 
 	if (casedDirection == "north") {
@@ -102,4 +102,61 @@ Room* Room::changeRoom(const string& direction) {
 	else {
 		throw invalid_argument("Invalid direction");
 	}
+}
+
+vector<Action*> Room::actions() {
+	return allActions;
+}
+
+string Room::getKey() const {
+	return requiredKey;
+}
+
+void Room::setKey(const string& key) {
+	requiredKey = key;
+}
+
+void Room::setLockedDescription(const string& desc) {
+	lockedDescription = desc;
+}
+
+string Room::getLockedDescription() {
+	return lockedDescription;
+}
+
+void Room::setLocked(bool locked) {
+	isLocked = locked;
+}
+
+void Room::setItem(string& item) {
+	this->restedItem = item;
+}
+
+string Room::getItem() {
+	return restedItem;
+}
+
+bool Room::isRoomLocked(const string& direction) const {
+	string casedDirection = toLower(direction);
+
+	if (!isExitExist(casedDirection)) {
+		return false;
+	}
+
+	Room* nextRoom = nullptr;
+
+	if (casedDirection == "north") nextRoom = northExit;
+	else if (casedDirection == "south") nextRoom = southExit;
+	else if (casedDirection == "east")  nextRoom = eastExit;
+	else if (casedDirection == "west")  nextRoom = westExit;
+
+	if (nextRoom == nullptr)
+		return false;
+
+	return nextRoom->isLocked;
+}
+
+
+void Room::removeItem() {
+	restedItem = "";
 }

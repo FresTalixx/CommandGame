@@ -32,17 +32,21 @@ void Player::setCurrentRoom(Room* room) {
 
 void Player::moveTo(string direction) {
 	string casedDirection = toLower(direction);
+	auto& items = inventory.getItems();
 
 	if (currentRoom->isExitExist(casedDirection)) {
-		if (currentRoom->isRoomLocked()) {
-			string requiredKey = currentRoom->getKey();
-			if (find(inventory.getItems().begin(), inventory.getItems().end(), requiredKey)
-				!= inventory.getItems().end()) {
+		Room* nextRoom = currentRoom->getExit(casedDirection);
 
-				currentRoom->setLocked(false);
+		if (currentRoom->isRoomLocked(casedDirection)) {
+			string requiredKey = nextRoom->getKey();
+
+			if (find(items.begin(), items.end(), requiredKey)
+				!= items.end()) {
+
+				nextRoom->setLocked(false);
 			}
 			else {
-				cout << currentRoom->getLockedDescription();
+				cout << nextRoom->getLockedDescription();
 				return;
 			}
 		}

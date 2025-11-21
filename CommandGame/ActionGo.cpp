@@ -17,10 +17,9 @@ void ActionGo::setDirection(const string& direction) {
 void ActionGo::execute() {
 	Room* currentRoom = player->getCurrentRoom();
 	if (currentRoom->isExitExist(toLower(direction))) {
-		Room* nextRoom = currentRoom->getExit(toLower(direction));
-		player->setCurrentRoom(nextRoom);
+		player->moveTo(direction);
 		cout << "You moved " << direction << " to "
-			<< nextRoom->getName() << "." << endl;
+			<< currentRoom->getName() << "." << endl;
 	}
 	else {
 		cout << "You cannot go " << direction << " from here." << endl;

@@ -17,7 +17,7 @@ public:
 		items.push_back(item);
 	}
 
-	vector<string> getItems() const {
+	const vector<string>& getItems() const {
 		return items;
 	}
 

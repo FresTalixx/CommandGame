@@ -44,47 +44,27 @@ public:
 
 	void setExit(Room* anotherRoom, const string& direction);
 
-	bool isExitExist(const string& direction);
+	bool isExitExist(const string& direction) const;
 
 	Room* changeRoom(const string& direction);
 
-	vector<Action*> actions() {
-		return allActions;
-	}
+	vector<Action*> actions();
 
-	string getKey() const {
-		return requiredKey;
-	}
+	string getKey() const;
 
-	void setKey(const string& key) {
-		requiredKey = key;
-	}
+	void setKey(const string& key);
 
-	void setLockedDescription(const string& desc) {
-		lockedDescription = desc;
-	}
+	void setLockedDescription(const string& desc);
 
-	string getLockedDescription() {
-		return lockedDescription;
-	}
+	string getLockedDescription();
 
-	void setLocked(bool locked) {
-		isLocked = locked;
-	}
+	void setLocked(bool locked);
 
-	void setItem(string& item) {
-		this->restedItem = item;
-	}
+	void setItem(string& item);
 
-	string getItem() {
-		return restedItem;
-	}
+	string getItem();
 
-	bool isRoomLocked() const {
-		return isLocked;
-	}
+	bool isRoomLocked(const string& direction) const;
 
-	void removeItem() {
-		restedItem = "";
-	}
+	void removeItem();
 };

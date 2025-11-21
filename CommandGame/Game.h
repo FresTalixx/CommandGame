@@ -63,6 +63,7 @@ public:
 		player.setCurrentRoom(corridor);
 
 		kitchen->setItem(goldenKeyKitchen);
+		exitRoom->setLocked(true);
 		exitRoom->setKey(goldenKeyKitchen);
 
 		//connecting rooms
