@@ -21,5 +21,5 @@ public:
 
 	
 
-	void execute() override;
+	void execute(string& returnMessage) override;
 };

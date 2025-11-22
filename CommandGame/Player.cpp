@@ -30,7 +30,7 @@ void Player::setCurrentRoom(Room* room) {
 	this->currentRoom = room;
 }
 
-void Player::moveTo(string direction) {
+void Player::moveTo(const string& direction, string& returnMessage) {
 	string casedDirection = toLower(direction);
 	auto& items = inventory.getItems();
 
@@ -44,9 +44,11 @@ void Player::moveTo(string direction) {
 				!= items.end()) {
 
 				nextRoom->setLocked(false);
+				returnMessage = "You used " + requiredKey + " to unlock the door.";
+				Player::getInventory().deleteItem(requiredKey);
 			}
 			else {
-				cout << nextRoom->getLockedDescription();
+				returnMessage = nextRoom->getLockedDescription();
 				return;
 			}
 		}
@@ -54,6 +56,6 @@ void Player::moveTo(string direction) {
 	}
 }
 
-Inventory Player::getInventory() {
+Inventory& Player::getInventory() {
 	return inventory;
 }

@@ -65,6 +65,7 @@ public:
 		kitchen->setItem(goldenKeyKitchen);
 		exitRoom->setLocked(true);
 		exitRoom->setKey(goldenKeyKitchen);
+		exitRoom->setLockedDescription("A bright exit leading outside. It seems to be locked. You need a key to open it.");
 
 		//connecting rooms
 		corridor->setExit(kitchen, "east");
@@ -109,6 +110,7 @@ public:
 
 	void gameloop() {
 		string inputString;
+		string returnedMessage;
 		while (isRunning) {
 			system("cls");
 
@@ -121,6 +123,11 @@ public:
 			for (auto& item : player.getInventory().getItems()) {
 				cout << item << " ";
 			}
+
+			SetColor(WHITE, BLACK);
+			SetCursorPosition(0, 4);
+			cout << returnedMessage << endl;
+			returnedMessage = "";
 
 			cout << endl << endl;
 
@@ -135,8 +142,9 @@ public:
 			
 			int choice = menuControl(actionsDescriptions, 0, 5, GREEN, BLACK, RED, BLACK);
 
-			actions[choice - 1]->execute();
-			_getch();
+			actions[choice - 1]->execute(returnedMessage);
+			
+			//_getch();
 
 		}
 		

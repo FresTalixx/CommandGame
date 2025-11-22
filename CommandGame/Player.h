@@ -29,7 +29,7 @@ public:
 
 	void setCurrentRoom(Room* room);
 
-	void moveTo(string direction);
+	void moveTo(const string& direction, string& returnMessage);
 
-	Inventory getInventory();
+	Inventory& getInventory();
 };

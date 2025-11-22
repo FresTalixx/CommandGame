@@ -1,19 +1,19 @@
 #include "ActionTake.h"
 #include <iostream>
 
-void ActionTake::execute() {
+void ActionTake::execute(string& returnMessage) {
     Room* room = player->getCurrentRoom();
 
     string item = room->getItem();
 
     if (item.empty()) {
-        cout << "There is nothing to take here.\n";
+        returnMessage = "There is nothing to take here.";
         return;
     }
 
     // Add item to inventory
     player->getInventory().addItem(item);
-    cout << "You picked up: " << item << "\n";
+    returnMessage = "You picked up: " + item;
 
     // Remove item from room
     room->removeItem();

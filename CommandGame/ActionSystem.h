@@ -13,5 +13,5 @@ public:
 		return description;
 	}
 
-	virtual void execute() {}
+	virtual void execute(std::string& returnMessage) {}
 };

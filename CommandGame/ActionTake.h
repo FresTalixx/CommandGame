@@ -12,5 +12,5 @@ public:
         : Action("Take item"), player(player) {
     }
 
-    void execute() override;
+    void execute(string& returnMessage) override;
 };

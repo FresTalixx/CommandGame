@@ -14,14 +14,19 @@ void ActionGo::setDirection(const string& direction) {
 	this->direction = direction;
 }
 
-void ActionGo::execute() {
+void ActionGo::execute(string& returnMessage) {
+	string casedDirection = toLower(direction);
+
 	Room* currentRoom = player->getCurrentRoom();
-	if (currentRoom->isExitExist(toLower(direction))) {
-		player->moveTo(direction);
-		cout << "You moved " << direction << " to "
-			<< currentRoom->getName() << "." << endl;
+
+	if (currentRoom->isExitExist(casedDirection)) {
+		player->moveTo(direction, returnMessage);
+		if (returnMessage.empty()) {
+			returnMessage = "You moved " + direction + " to "
+				+ currentRoom->getExit(casedDirection)->getName() + ".";
+		}
 	}
 	else {
-		cout << "You cannot go " << direction << " from here." << endl;
+		returnMessage = "You cannot go " + direction + " from here.";
 	}
 }
