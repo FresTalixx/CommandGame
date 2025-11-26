@@ -14,6 +14,12 @@
 #include "ActionGo.h"
 #include "keyboardMenuControll.h"
 #include "ActionTake.h"
+#include "MapRenderer.h"
+
+#define MAP_HEIGHT 7
+#define MAP_WIDTH 25
+#define MAP_START_X 20
+#define MAP_START_Y 10
 
 
 using namespace std;
@@ -123,6 +129,10 @@ public:
 			for (auto& item : player.getInventory().getItems()) {
 				cout << item << " ";
 			}
+
+			MapRenderer map(player.getCurrentRoom(), MAP_HEIGHT, MAP_WIDTH, MAP_START_X, MAP_START_Y);
+			map.render();
+
 
 			SetColor(WHITE, BLACK);
 			SetCursorPosition(0, 4);

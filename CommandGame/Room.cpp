@@ -10,6 +10,7 @@ Room::Room(string name, string description, vector<Action*> allActions) : name{ 
 	westExit = nullptr;
 	this->allActions = allActions;
 	isLocked = false;
+	isVisited = false;
 	restedItem = "";
 
 }
@@ -159,4 +160,12 @@ bool Room::isRoomLocked(const string& direction) const {
 
 void Room::removeItem() {
 	restedItem = "";
+}
+
+void Room::setVisited(bool isVisited) {
+	this->isVisited = isVisited;
+}
+
+bool Room::getIsVisited() const {
+	return isVisited;
 }

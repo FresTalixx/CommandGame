@@ -141,6 +141,7 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="Inventory.h" />
     <ClInclude Include="keyboardMenuControll.h" />
+    <ClInclude Include="MapRenderer.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Room.h" />
     <ClInclude Include="Utils.h" />

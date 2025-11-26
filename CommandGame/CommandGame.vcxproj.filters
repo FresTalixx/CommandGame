@@ -74,5 +74,8 @@
     <ClInclude Include="ActionTake.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="MapRenderer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

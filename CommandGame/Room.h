@@ -28,6 +28,8 @@ private:
 	Room* eastExit;
 	Room* southExit;
 	Room* westExit;
+	
+	bool isVisited;
 
 	vector<Action*> allActions;
 
@@ -67,4 +69,8 @@ public:
 	bool isRoomLocked(const string& direction) const;
 
 	void removeItem();
+
+	void setVisited(bool isVisited);
+
+	bool getIsVisited() const;
 };
