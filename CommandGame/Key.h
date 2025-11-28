@@ -8,45 +8,19 @@ class Room;
 #include <string>
 #include <vector>
 
-using namespace std;
-
 class Key : public Item {
 private:
-	string keyID;
+	std::string keyID;
 	Player* player;
-	string exitDirection;
+	std::string exitDirection;
 public:
-	Key(const string& keyName, const string& keyDesc, const string& keyID, const string& exitDirection)
-	{
-		setName(keyName);
-		setDescription(keyDesc);
-		this->keyID = keyID;
-		this->player = nullptr;
-		this->exitDirection = exitDirection;
-	}
+	Key(const std::string& keyName, const std::string& keyDesc,
+		const std::string& keyID, const std::string& exitDirection);
 
-	Key(const string& keyName, const string& keyDesc, const string& keyID, const string& exitDirection, Player* player)
-	{
-		setName(keyName);
-		setDescription(keyDesc);
-		this->keyID = keyID;
-		this->player = player;
-		this->exitDirection = exitDirection;
-	}
+	Key(const std::string& keyName, const std::string& keyDesc,
+		const std::string& keyID, const std::string& exitDirection, Player* player);
 
-	void setPlayer(Player* player) {
-		this->player = player;
-	}
+	void setPlayer(Player* player);
 
-	void use(string& returnMessage) override {
-		if (!player) {
-			returnMessage = "No player assigned to use the key.";
-			return;
-		}
-		Room* nextRoom = player->getCurrentRoom()->getExit(exitDirection);
-
-		nextRoom->setLocked(false);
-		returnMessage = "You used " + itemName + " to unlock the door.";
-		player->getInventory().deleteItem(this);
-	}
+	void use(std::string& returnMessage) override;
 };

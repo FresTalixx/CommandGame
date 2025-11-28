@@ -12,25 +12,14 @@ private:
 	vector<Item*> items;
 
 public:
-	Inventory() : items() {}
+	Inventory();
 
-	void addItem(Item* item) {
-		items.push_back(item);
-	}
+	void addItem(Item* item);
 
-	const vector<Item*>& getItems() const {
-		return items;
-	}
+	const vector<Item*>& getItems() const;
 
-	void deleteItem(const Item* item) {
-		auto it = find(items.begin(), items.end(), item);
-		if (it != items.end()) {
-			items.erase(it);
-		}
-	}
+	void deleteItem(const Item* item);
 
-	bool hasItem(const Item* item) const {
-		return find(items.begin(), items.end(), item) != items.end();
-	}
+	bool hasItem(const Item* item) const;
 
 };

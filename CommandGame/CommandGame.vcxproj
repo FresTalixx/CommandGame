@@ -125,7 +125,9 @@
   <ItemGroup>
     <ClCompile Include="ActionTake.cpp" />
     <ClCompile Include="consoleCommands.cpp" />
+    <ClCompile Include="Inventory.cpp" />
     <ClCompile Include="Item.h" />
+    <ClCompile Include="Key.cpp" />
     <ClCompile Include="keyboardMenuControll.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Player.cpp" />

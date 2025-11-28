@@ -10,16 +10,16 @@ using namespace std;
 
 class ActionGo : public Action{
 private:
-	string direction;
+	std::string direction;
 	Player* player;
 public:
 	ActionGo();
 
-	ActionGo(Player* player, string direction, string description);
+	ActionGo(Player* player, std::string direction, std::string description);
 	
-	void setDirection(const string& direction);
+	void setDirection(const std::string& direction);
 
 	
 
-	void execute(string& returnMessage) override;
+	void execute(std::string& returnMessage) override;
 };
