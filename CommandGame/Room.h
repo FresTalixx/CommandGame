@@ -26,7 +26,8 @@ private:
 	Key* requiredKey;
 	string lockedDescription;
 
-	Item* restedItem;
+	vector<Item*> visibleItems;
+	vector<Item*> hiddenItems;
 
 	Room* northExit;
 	bool isNorthExitHidden = false;
@@ -86,6 +87,18 @@ public:
 	void setHiddenExit();
 
 	void getHiddenExit() const;
+
+	void addHiddenItem(Item* item);
+
+	vector<Item*> getHiddenItems() const;
+
+	void removeHiddenItem(Item* item);
+
+	void addVisibleItem(Item* item);
+
+	vector<Item*> getVisibleItems() const;
+
+	void removeVisibleItem(Item* item);
 
 	void showHiddenThingsRoom(const bool& state);
 

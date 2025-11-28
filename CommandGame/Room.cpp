@@ -177,3 +177,34 @@ void Room::showHiddenThingsRoom(const bool& state) {
 bool Room::getShowHiddenThingsRoom() const {
 	return showHiddenThings;
 }
+
+void Room::addHiddenItem(Item* item) {
+	hiddenItems.push_back(item);
+}
+
+vector<Item*> Room::getHiddenItems() const {
+	return hiddenItems;
+}
+
+void Room::removeHiddenItem(Item* itemToRemove) {
+	auto it = std::find(hiddenItems.begin(), hiddenItems.end(), itemToRemove);
+	if (it != hiddenItems.end()) {
+		hiddenItems.erase(it);
+	}
+}
+
+
+void Room::addVisibleItem(Item* item) {
+	visibleItems.push_back(item);
+}
+
+vector<Item*> Room::getVisibleItems() const {
+	return visibleItems;
+}
+
+void Room::removeVisibleItem(Item* itemToRemove) {
+	auto it = std::find(visibleItems.begin(), visibleItems.end(), itemToRemove);
+	if (it != visibleItems.end()) {
+		visibleItems.erase(it);
+	}
+}
