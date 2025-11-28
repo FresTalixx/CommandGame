@@ -4,11 +4,15 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <memory>
 
 #include "Utils.h"
 #include "ActionSystem.h"
 #include "ActionGo.h"
 #include "Inventory.h"
+#include "Item.h"
+
+class Key;
 
 using namespace std;
 
@@ -19,10 +23,10 @@ private:
 	string description;
 
 	bool isLocked;
-	string requiredKey;
+	Key* requiredKey;
 	string lockedDescription;
 
-	string restedItem;
+	Item* restedItem;
 
 	Room* northExit;
 	Room* eastExit;
@@ -52,9 +56,9 @@ public:
 
 	vector<Action*> actions();
 
-	string getKey() const;
+	Key* getKey() const;
 
-	void setKey(const string& key);
+	void setKey(Key* key);
 
 	void setLockedDescription(const string& desc);
 
@@ -62,9 +66,9 @@ public:
 
 	void setLocked(bool locked);
 
-	void setItem(string& item);
+	void setItem(Item* item);
 
-	string getItem();
+	Item* getItem();
 
 	bool isRoomLocked(const string& direction) const;
 

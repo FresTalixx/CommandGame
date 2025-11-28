@@ -15,6 +15,7 @@
 #include "keyboardMenuControll.h"
 #include "ActionTake.h"
 #include "MapRenderer.h"
+#include "Key.h"
 
 #define MAP_HEIGHT 7
 #define MAP_WIDTH 25
@@ -46,7 +47,7 @@ public:
 		ActionGo* goWest = new ActionGo(&player, "west", "Go West");
 		ActionTake* takeGoldenKey = new ActionTake(&player);
 
-		string goldenKeyKitchen = "Golden key";
+		Key* goldenKeyKitchen = new Key("Golden key", "A shiny golden key.", "golden_key_001", "north", &player);
 
 		vector<Action*> actions = {
 			goNorth,
@@ -127,7 +128,7 @@ public:
 
 			cout << "Inventory: ";
 			for (auto& item : player.getInventory().getItems()) {
-				cout << item << " ";
+				cout << item->getName() << " ";
 			}
 
 			MapRenderer map(player.getCurrentRoom(), MAP_HEIGHT, MAP_WIDTH, MAP_START_X, MAP_START_Y);
@@ -153,6 +154,7 @@ public:
 			int choice = menuControl(actionsDescriptions, 0, 5, GREEN, BLACK, RED, BLACK);
 
 			actions[choice - 1]->execute(returnedMessage);
+			player.getCurrentRoom();
 			
 			//_getch();
 

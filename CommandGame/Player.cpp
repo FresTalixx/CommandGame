@@ -2,6 +2,8 @@
 #include <iostream>
 #include <string>
 
+#include "Key.h"
+
 Player::Player() {
 	this->name = "Hero";
 	this->currentRoom = nullptr;
@@ -38,14 +40,12 @@ void Player::moveTo(const string& direction, string& returnMessage) {
 		Room* nextRoom = currentRoom->getExit(casedDirection);
 
 		if (currentRoom->isRoomLocked(casedDirection)) {
-			string requiredKey = nextRoom->getKey();
+			Key* requiredKey = nextRoom->getKey();
 
 			if (find(items.begin(), items.end(), requiredKey)
 				!= items.end()) {
 
-				nextRoom->setLocked(false);
-				returnMessage = "You used " + requiredKey + " to unlock the door.";
-				Player::getInventory().deleteItem(requiredKey);
+				requiredKey->use(returnMessage);
 			}
 			else {
 				returnMessage = nextRoom->getLockedDescription();

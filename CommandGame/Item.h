@@ -9,6 +9,15 @@ protected:
 	string itemName;
 	string itemDescription;
 public:
+	Item() {
+		itemName = "";
+		itemDescription = "";
+	}
+
+	Item(const string& name, const string& desc) {
+		itemName = name;
+		itemDescription = desc;
+	}
 
 	void setName(const string& name) {
 		itemName = name;
@@ -26,5 +35,5 @@ public:
 		return itemDescription;
 	}
 
-	virtual void use() = 0;
+	virtual void use(string& returnMessage) {};
 };

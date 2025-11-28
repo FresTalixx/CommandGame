@@ -11,7 +11,7 @@ Room::Room(string name, string description, vector<Action*> allActions) : name{ 
 	this->allActions = allActions;
 	isLocked = false;
 	isVisited = false;
-	restedItem = "";
+	restedItem = nullptr;
 
 }
 
@@ -109,11 +109,11 @@ vector<Action*> Room::actions() {
 	return allActions;
 }
 
-string Room::getKey() const {
+Key* Room::getKey() const {
 	return requiredKey;
 }
 
-void Room::setKey(const string& key) {
+void Room::setKey(Key* key) {
 	requiredKey = key;
 }
 
@@ -129,11 +129,11 @@ void Room::setLocked(bool locked) {
 	isLocked = locked;
 }
 
-void Room::setItem(string& item) {
+void Room::setItem(Item* item) {
 	this->restedItem = item;
 }
 
-string Room::getItem() {
+Item* Room::getItem() {
 	return restedItem;
 }
 
@@ -159,7 +159,7 @@ bool Room::isRoomLocked(const string& direction) const {
 
 
 void Room::removeItem() {
-	restedItem = "";
+	restedItem = nullptr;
 }
 
 void Room::setVisited(bool isVisited) {
