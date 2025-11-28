@@ -5,6 +5,7 @@
 #include "Inventory.h"
 
 #include "Room.h"
+#include "ActionSystem.h"
 
 using namespace std;
 
@@ -15,6 +16,8 @@ private:
 	Inventory inventory;
 
 	Room* currentRoom;
+
+	vector<Action*> possibleActions;
 
 public:
 	Player();
@@ -30,6 +33,12 @@ public:
 	void setCurrentRoom(Room* room);
 
 	void moveTo(const string& direction, string& returnMessage);
+
+	void addAction(Action* action);
+
+	vector<Action*> getPossibleActions() const;
+
+	void removeAction(Action* action);
 
 	Inventory& getInventory();
 };

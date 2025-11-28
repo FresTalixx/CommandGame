@@ -169,3 +169,11 @@ void Room::setVisited(bool isVisited) {
 bool Room::getIsVisited() const {
 	return isVisited;
 }
+
+void Room::showHiddenThingsRoom(const bool& state) {
+	showHiddenThings = state;
+}
+
+bool Room::getShowHiddenThingsRoom() const {
+	return showHiddenThings;
+}

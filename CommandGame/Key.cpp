@@ -9,6 +9,7 @@ Key::Key(const std::string& keyName, const std::string& keyDesc, const std::stri
 	this->keyID = keyID;
 	this->player = nullptr;
 	this->exitDirection = exitDirection;
+	itemID = "key";
 }
 
 Key::Key(const std::string& keyName, const std::string& keyDesc, const std::string& keyID, const std::string& exitDirection, Player* player)
@@ -18,6 +19,7 @@ Key::Key(const std::string& keyName, const std::string& keyDesc, const std::stri
 	this->keyID = keyID;
 	this->player = player;
 	this->exitDirection = exitDirection;
+	itemID = "key";
 }
 
 void Key::setPlayer(Player* player) {

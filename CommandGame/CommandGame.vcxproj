@@ -139,7 +139,9 @@
     <ClInclude Include="ActionGo.h" />
     <ClInclude Include="ActionSystem.h" />
     <ClInclude Include="ActionTake.h" />
+    <ClInclude Include="ActionToggleFlashlight.h" />
     <ClInclude Include="consoleCommands.h" />
+    <ClInclude Include="Flashlight.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Inventory.h" />
     <ClInclude Include="Key.h" />

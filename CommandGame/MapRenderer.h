@@ -101,6 +101,22 @@ public:
             cout << string(width - 2, ' ');
             cout << "|\n";
         }
+        if (roomToRender->getItem()) {
+            if (!roomToRender->getItem()->getHiddenState()) {
+                SetCursorPosition(startX, startY + height);
+                cout << "You see a " << roomToRender->getItem()->getName() << " here.\n";
+            }
+            else {
+                if (roomToRender->getShowHiddenThingsRoom()) {
+                    SetCursorPosition(startX, startY + height);
+					cout << "You see a " << roomToRender->getItem()->getName() << " here.\n";
+                }
+                else {
+                    return;
+                }
+            }
+            
+        }
     }
 
 };

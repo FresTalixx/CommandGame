@@ -29,11 +29,16 @@ private:
 	Item* restedItem;
 
 	Room* northExit;
+	bool isNorthExitHidden = false;
 	Room* eastExit;
+	bool isEastExitHidden = false;
 	Room* southExit;
+	bool isSouthExitHidden = false;
 	Room* westExit;
+	bool isWestExitHidden = false;
 	
 	bool isVisited;
+	bool showHiddenThings = false;
 
 	vector<Action*> allActions;
 
@@ -77,4 +82,12 @@ public:
 	void setVisited(bool isVisited);
 
 	bool getIsVisited() const;
+
+	void setHiddenExit();
+
+	void getHiddenExit() const;
+
+	void showHiddenThingsRoom(const bool& state);
+
+	bool getShowHiddenThingsRoom() const;
 };

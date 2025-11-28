@@ -3,6 +3,7 @@
 #include <string>
 
 #include "Key.h"
+#include "Flashlight.h"
 
 Player::Player() {
 	this->name = "Hero";
@@ -52,10 +53,29 @@ void Player::moveTo(const string& direction, string& returnMessage) {
 				return;
 			}
 		}
+		
+		for (auto item : items) {
+			item->onPlayerLeave();
+		}
 		currentRoom = currentRoom->changeRoom(casedDirection);
 	}
 }
 
 Inventory& Player::getInventory() {
 	return inventory;
+}
+
+void Player::addAction(Action* action) {
+	possibleActions.push_back(action);
+}
+
+vector<Action*> Player::getPossibleActions() const {
+	return possibleActions;
+}
+
+void Player::removeAction(Action* action) {
+	possibleActions.erase(
+		remove(possibleActions.begin(), possibleActions.end(), action),
+		possibleActions.end()
+	);
 }
