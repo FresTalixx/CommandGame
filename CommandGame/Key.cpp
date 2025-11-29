@@ -32,7 +32,10 @@ void Key::use(std::string& returnMessage) {
 		return;
 	}
 	Room* nextRoom = player->getCurrentRoom()->getExit(exitDirection);
-
+	if (!nextRoom) {
+		returnMessage = "You can't unlock room from this side";
+		return;
+	}
 	nextRoom->setLocked(false);
 	returnMessage = "You used " + itemName + " to unlock the door.";
 	player->getInventory().deleteItem(this);
