@@ -20,11 +20,6 @@ public:
 		itemDescription = desc;
 	}
 
-	Item(const string& name, const string& desc) {
-		itemName = name;
-		itemDescription = desc;
-	}
-
 	void setName(const string& name) {
 		itemName = name;
 	}

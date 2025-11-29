@@ -50,10 +50,7 @@ public:
 		ActionTake* takeAction= new ActionTake(&player);
 		ActionToggleFlashlight* toggleFlashlight = new ActionToggleFlashlight(&player);
 
-		Key* goldenKeyKitchen = new Key("Golden key", "A shiny golden key.", "golden_key_001", "north", &player);
-		Flashlight* flashlight = new Flashlight("Flashlight", "A battery-powered flashlight.", &player);
-		Key* goldenKeyBasement = new Key("Basement key", "A rusty basement key.", "basement_key_001", "north", &player);
-		goldenKeyBasement->setHiddenState(true); // The basement key is hidden initially
+		
 
 
 		vector<Action*> actions = {
@@ -78,16 +75,28 @@ public:
 		Room* bathroom = new Room("Bathroom", "A clean bathroom with a shiny mirror.", actions);
 		Room* exitRoom = new Room("Exit", "A bright exit leading outside.", actions);
 
+		Key* goldenKeyKitchen = new Key("Golden key", "A shiny golden key.", "golden_key_001", "north", &player);
+		Flashlight* flashlight = new Flashlight("Flashlight", "A battery-powered flashlight.", &player);
+		Key* goldenKeyBasement = new Key("Basement key", "A rusty basement key.", "basement_key_001", "north", &player);
+		// temp
+		Key* bedroomKey = new Key("Bedroom key", "A small bedroom key.", "bedroom_key_001", "south", &player);
+		Key* atticKey = new Key("Attic key", "An old attic key.", "attic_key_001", "north", &player);
+
 		player.setCurrentRoom(corridor);
 
-		kitchen->setItem(goldenKeyKitchen);
+		// Item init
+		kitchen->addVisibleItem(goldenKeyKitchen);
 		exitRoom->setLocked(true);
 		exitRoom->setKey(goldenKeyKitchen);
 		exitRoom->setLockedDescription("A bright exit leading outside. It seems to be locked. You need a key to open it.");
 		
-		bathroom->setItem(flashlight);
+		bathroom->addVisibleItem(flashlight);
+		bathroom->addHiddenItem(bedroomKey);
+		bathroom->addHiddenItem(atticKey);
 
-		basement->setItem(goldenKeyBasement);
+		basement->addHiddenItem(goldenKeyBasement); // The basement key is hidden initially
+
+		// room connection
 		attic->setLocked(true);
 		attic->setKey(goldenKeyBasement);
 		attic->setLockedDescription("A cluttered attic filled with old furniture. The door is locked. You need a key to open it.");

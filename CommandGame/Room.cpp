@@ -11,8 +11,6 @@ Room::Room(string name, string description, vector<Action*> allActions) : name{ 
 	this->allActions = allActions;
 	isLocked = false;
 	isVisited = false;
-	restedItem = nullptr;
-
 }
 
 string Room::getName() const {
@@ -129,14 +127,6 @@ void Room::setLocked(bool locked) {
 	isLocked = locked;
 }
 
-void Room::setItem(Item* item) {
-	this->restedItem = item;
-}
-
-Item* Room::getItem() {
-	return restedItem;
-}
-
 bool Room::isRoomLocked(const string& direction) const {
 	string casedDirection = toLower(direction);
 
@@ -155,11 +145,6 @@ bool Room::isRoomLocked(const string& direction) const {
 		return false;
 
 	return nextRoom->isLocked;
-}
-
-
-void Room::removeItem() {
-	restedItem = nullptr;
 }
 
 void Room::setVisited(bool isVisited) {

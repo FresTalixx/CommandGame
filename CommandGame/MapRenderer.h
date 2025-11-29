@@ -101,21 +101,37 @@ public:
             cout << string(width - 2, ' ');
             cout << "|\n";
         }
-        if (roomToRender->getItem()) {
-            if (!roomToRender->getItem()->getHiddenState()) {
-                SetCursorPosition(startX, startY + height);
-                cout << "You see a " << roomToRender->getItem()->getName() << " here.\n";
+		auto hiddenItems = roomToRender->getHiddenItems();
+		auto visibleItems = roomToRender->getVisibleItems();
+        
+		// if there are no items in the room, return
+        if (hiddenItems.empty() && visibleItems.empty()) {
+            return;
+		}
+
+		// render visible and invisible items if the flag is set
+        if (roomToRender->getShowHiddenThingsRoom()) {
+			int tempHeight = 0;
+
+            for (auto& item : visibleItems) {
+                SetCursorPosition(startX, startY + height + tempHeight);
+                cout << "You see a " << item->getName() << " here.\n";
+                tempHeight++;
+			}
+
+            for (auto& item : hiddenItems) {
+                SetCursorPosition(startX, startY + height + tempHeight);
+                cout << "You see a hidden " << item->getName() << " here.\n";
+                tempHeight++;
             }
-            else {
-                if (roomToRender->getShowHiddenThingsRoom()) {
-                    SetCursorPosition(startX, startY + height);
-					cout << "You see a " << roomToRender->getItem()->getName() << " here.\n";
-                }
-                else {
-                    return;
-                }
-            }
-            
+		}
+        else {
+            int tempHeight = 0;
+
+            for (auto& item : visibleItems) {
+                SetCursorPosition(startX, startY + height + tempHeight);
+                cout << "You see a " << item->getName() << " here.\n";
+			}
         }
     }
 

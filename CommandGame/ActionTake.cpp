@@ -5,35 +5,61 @@
 void ActionTake::execute(string& returnMessage) {
     Room* room = player->getCurrentRoom();
 
-    Item* item = room->getItem();
+    vector<Item*> itemsVisible = room->getVisibleItems();
+    vector<Item*> itemsHidden = room->getHiddenItems();
 
-    if (!item) {
-        returnMessage = "There is nothing to take here.";
+    if (itemsVisible.empty() && itemsHidden.empty()) {
+        returnMessage = "It seems there is nothing to take here.";
         return;
     }
 
-    if (!item->getHiddenState()) {
-        // Add item to inventory
-        player->getInventory().addItem(item);
-        returnMessage = "You picked up: " + item->getName();
-
-        if (item->getItemID() == "flashlight") {
-			Action* turnOnFlashlight = new ActionToggleFlashlight(player);
-			player->addAction(turnOnFlashlight);
-        }
-        // Remove item from room
-        room->removeItem();
-	}
-    else {
-        if (room->getShowHiddenThingsRoom()) {
+    if (!room->getShowHiddenThingsRoom()) {
+        if (!itemsVisible.empty()) {
             // Add item to inventory
-            player->getInventory().addItem(item);
-            returnMessage = "You picked up: " + item->getName();
+            player->getInventory().addItem(itemsVisible[0]);
+            returnMessage = "You picked up: " + itemsVisible[0]->getName();
+
+            if (itemsVisible[0]->getItemID() == "flashlight") {
+                Action* turnOnFlashlight = new ActionToggleFlashlight(player);
+                player->addAction(turnOnFlashlight);
+            }
             // Remove item from room
-            room->removeItem();
+            room->removeVisibleItem(itemsVisible[0]);
         }
         else {
-			returnMessage = "It seems there is nothing to take here.";
+            returnMessage = "It seems there is nothing to take here.";
+            return;
+        }
+        
+	}
+    else {
+        if (!itemsVisible.empty()) {
+            // Add item to inventory
+            player->getInventory().addItem(itemsVisible[0]);
+            returnMessage = "You picked up: " + itemsVisible[0]->getName();
+
+            if (itemsVisible[0]->getItemID() == "flashlight") {
+                Action* turnOnFlashlight = new ActionToggleFlashlight(player);
+                player->addAction(turnOnFlashlight);
+            }
+            // Remove item from room
+            room->removeVisibleItem(itemsVisible[0]);
+        }
+        else if (!itemsHidden.empty()) {
+            // Add item to inventory
+            player->getInventory().addItem(itemsHidden[0]);
+            returnMessage = "You picked up: " + itemsHidden[0]->getName();
+            if (itemsHidden[0]->getItemID() == "flashlight") {
+                Action* turnOnFlashlight = new ActionToggleFlashlight(player);
+                player->addAction(turnOnFlashlight);
+            }
+            // Remove item from room
+            room->removeHiddenItem(itemsHidden[0]);
+		}
+
+        else {
+            returnMessage = "It seems there is nothing to take here.";
+            return;
         }
     }
 

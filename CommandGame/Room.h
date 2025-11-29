@@ -72,13 +72,7 @@ public:
 
 	void setLocked(bool locked);
 
-	void setItem(Item* item);
-
-	Item* getItem();
-
 	bool isRoomLocked(const string& direction) const;
-
-	void removeItem();
 
 	void setVisited(bool isVisited);
 
