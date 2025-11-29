@@ -42,6 +42,19 @@ public:
 		isRunning = true;
 	}
 
+	void helper(size_t startX, size_t startY) {
+		auto print = [&](const string& text, int offsetY) {
+			SetCursorPosition(startX, startY + offsetY);
+			cout << text;
+			};
+
+		print("Available commands:", 0);
+		print("- Use the arrow keys to navigate through the rooms.", 1);
+		print("- Use 'T' key to take items.", 2);
+		print("- Use 'F' key to turn the flashlight on or off.", 3);
+		print("- press 'Q' to exit the game.", 4);
+	}
+
 	void init() {
 		//initialising player
 		player = Player("Hero", nullptr);
@@ -101,27 +114,26 @@ public:
 		Flashlight* flashlight = new Flashlight("Flashlight", "A battery-powered flashlight.", &player);
 		Key* redKeyAttic = new Key("Red key", "A rusty red key.", "attic_key_001", "north", &player);
 		Key* blueKeyBathroom = new Key("Blue key", "A blue key.", "veranda_key_001", "east", &player);
+		Key* nurseryKeyGreen = new Key("Green key", "A greenish key", "nursery_key_001", "south", &player);
 		Key* goldenKeyExit = new Key("Shiny key", "A shiny golden key.", "exit_key_001", "north", &player);
-		Key* nurseryKeyGreen = new Key("Greeb key", "A greenish key", "nursery_key_001", "south", &player);
+		Key* ashwellKey = new Key("Ashwell key", "An old ashwell key.", "ashwell_key_001", "north", &player);
 		Key* hallKey = new Key("Hall key", "An old hall key.", "hall_key_001", "north", &player);
 		Key* basementKeyGray = new Key("Gray key", "A pretty creepy key", "basement_key_001", "north", &player);
+		Key* secretRoomKey = new Key("Secret Room Key", "A mysterious key with intricate gloom", "secret_key_001", "east", &player);
 
 		player.setCurrentRoom(corridor);
 
 		// Item init
-
-		kitchen->addHiddenItem(goldenKeyExit);
-		exitRoom->setLocked(true);
-		exitRoom->setKey(goldenKeyExit);
-		exitRoom->setLockedDescription("A bright exit leading outside. It seems to be locked with a golden lock. You need a key to open it.");
 		
 		secretRoom->addVisibleItem(goldenKeyExit);
 		secretRoom->addHiddenItem(basementKeyGray);
+
 		exitRoom->setLocked(true);
 		exitRoom->setKey(goldenKeyExit);
 		exitRoom->setLockedDescription("A bright exit leading outside. It seems to be locked with a golden lock. You need a key to open it.");
 		
-		exitRoom->addVisibleItem(basementKeyGray);
+		smokingRoom->addVisibleItem(redKeyAttic);
+
 		basement->setLocked(true);
 		basement->setKey(basementKeyGray);
 		basement->setLockedDescription("A dark basement with a musty smell. The door is locked with a gray lock. You need a key to open it.");
@@ -138,17 +150,25 @@ public:
 		veranda->setKey(blueKeyBathroom);
 		veranda->setLockedDescription("A charming veranda overlooking the garden. The door is locked with a blue lock. You need a key to open it.");
 
-		ashwell->addHiddenItem(nurseryKeyGreen);
+		veranda->addHiddenItem(nurseryKeyGreen);
 		nursery->setLocked(true);
 		nursery->setKey(nurseryKeyGreen);
 		nursery->setLockedDescription("A cheerful nursery decorated with toys and colorful furniture. The door is locked with a green lock. You need a key to open it.");
+
+		nursery->addVisibleItem(ashwellKey);
+		ashwell->setLocked(true);
+		ashwell->setLockedDescription("An old ashwell with a creaky wooden cover. The door is locked with an ashwell lock. You need a key to open it.");
+		ashwell->setKey(ashwellKey);
 
 		musicRoom->addVisibleItem(hallKey);
 		hall->setLocked(true);
 		hall->setKey(hallKey);
 		hall->setLockedDescription("A spacious hall with portraits lining the walls. The door is locked with a hall lock. You need a key to open it.");
 
-
+		ashwell->addVisibleItem(secretRoomKey);
+		secretRoom->setLocked(true);
+		secretRoom->setLockedDescription("A hidden room filled with treasures. The door is locked. You need a key to open it.");
+		secretRoom->setKey(secretRoomKey);
 
 		//connecting rooms
 		corridor->setExit(kitchen, "east");
@@ -271,6 +291,9 @@ public:
 			MapRenderer map(player.getCurrentRoom(), MAP_HEIGHT, MAP_WIDTH, MAP_START_X, MAP_START_Y);
 			map.render();
 
+			SetColor(GREEN, BLACK);
+			helper(65, 7);
+			SetColor(BLUE, BLACK);
 
 			SetColor(WHITE, BLACK);
 			SetCursorPosition(0, 4);
@@ -379,6 +402,7 @@ public:
 			return true;
 		}
 
+		returnedMessage = "You did not do anything.";
 		return false;
 	}
 

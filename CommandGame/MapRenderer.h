@@ -40,14 +40,28 @@ public:
         SetCursorPosition(startX, startY);
 
         for (size_t row = 0; row < height; ++row) {
+            if (roomToRender->getShowHiddenThingsRoom()) {
+                SetColor(WHITE, DARK_YELLOW);
+            }
+            else {
+                SetColor(BLUE, BLACK);
+            }
+
             SetCursorPosition(startX, startY + row);
             // top border
             if (row == 0) {
                 cout << "/";
                 cout << string(width / 2 - 2, '-');
 
-                if (roomToRender->getExit("north"))
-                    cout << "   ";
+                if (roomToRender->getExit("north")) {
+                    if (roomToRender->isRoomLocked("north")) {
+                        cout << "|||";
+                    }
+                    else {
+                        cout << "   ";
+                    }
+                }
+
                 else
                     cout << "---";
 
@@ -61,8 +75,15 @@ public:
                 cout << "\\";
                 cout << string(width / 2 - 2, '-');
 
-                if (roomToRender->getExit("south"))
-                    cout << "   ";
+                if (roomToRender->getExit("south")) {
+                    if (roomToRender->isRoomLocked("south")) {
+                        cout << "|||";
+                    }
+                    else {
+                        cout << "   ";
+                    }
+                }
+                    
                 else
                     cout << "---";
 
@@ -78,7 +99,13 @@ public:
                 int rightPadding = max(1, int(width - name.size() - leftPadding));
 
                 if (roomToRender->getExit("west")) {
-                    cout << " ";
+                    if (roomToRender->isRoomLocked("west")) {
+                        cout << "-";
+                    }
+                    else {
+                        cout << " ";
+                    }
+                    
                 }
                 else {
                     cout << "|";
@@ -87,12 +114,18 @@ public:
                     << name
                     << string(rightPadding - 1, ' ');
 
-                    if (roomToRender->getExit("east")) {
-                        cout << " \n";
+                if (roomToRender->getExit("east")) {
+                    if (roomToRender->isRoomLocked("east")) {
+                        cout << "-";
                     }
                     else {
-                        cout << "|\n";
+                        cout << " ";
                     }
+
+                }
+                else {
+                    cout << "|\n";
+                }
                 continue;
             }
 
@@ -101,6 +134,9 @@ public:
             cout << string(width - 2, ' ');
             cout << "|\n";
         }
+
+        
+
 		auto hiddenItems = roomToRender->getHiddenItems();
 		auto visibleItems = roomToRender->getVisibleItems();
         
@@ -108,31 +144,37 @@ public:
         if (hiddenItems.empty() && visibleItems.empty()) {
             return;
 		}
-
+        SetColor(GREEN, BLACK);
 		// render visible and invisible items if the flag is set
         if (roomToRender->getShowHiddenThingsRoom()) {
-			int tempHeight = 0;
+            int visibleItemsGap = 0;
+            int hiddenItemsGap = 0;
 
             for (auto& item : visibleItems) {
-                SetCursorPosition(startX, startY + height + tempHeight);
-                cout << "You see a " << item->getName() << " here.\n";
-                tempHeight++;
+                SetColor(GREEN, DARK_YELLOW); // to remove black bg from flashlight's light
+                SetCursorPosition(startX + 1 + visibleItemsGap, startY + 1); // top row of the room
+                cout << item->getName();
+                visibleItemsGap += item->getName().size();
 			}
 
             for (auto& item : hiddenItems) {
-                SetCursorPosition(startX, startY + height + tempHeight);
-                cout << "You see a hidden " << item->getName() << " here.\n";
-                tempHeight++;
+                SetColor(RED, DARK_YELLOW); // to remove black bg from flashlight's light
+                SetCursorPosition(startX + 1 + hiddenItemsGap, startY + height - 2); // bottom row of the room
+                cout << item->getName();
+                hiddenItemsGap += item->getName().size();
             }
 		}
         else {
             int tempHeight = 0;
+            int visibleItemsGap = 0;
 
             for (auto& item : visibleItems) {
-                SetCursorPosition(startX, startY + height + tempHeight);
-                cout << "You see a " << item->getName() << " here.\n";
+                SetCursorPosition(startX + 1 + visibleItemsGap, startY + 1); // top row of the room
+                cout << item->getName();
+                visibleItemsGap += item->getName().size();
 			}
         }
+        SetColor(BLUE, BLACK);
     }
 
 };
