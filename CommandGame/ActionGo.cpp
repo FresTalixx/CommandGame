@@ -14,6 +14,10 @@ void ActionGo::setDirection(const string& direction) {
 	this->direction = direction;
 }
 
+string ActionGo::getDirection() const {
+	return direction;
+}
+
 void ActionGo::execute(string& returnMessage) {
 	string casedDirection = toLower(direction);
 

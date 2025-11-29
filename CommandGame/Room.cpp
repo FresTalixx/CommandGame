@@ -11,6 +11,7 @@ Room::Room(string name, string description, vector<Action*> allActions) : name{ 
 	this->allActions = allActions;
 	isLocked = false;
 	isVisited = false;
+	requiredKey = nullptr;
 }
 
 string Room::getName() const {
@@ -193,3 +194,9 @@ void Room::removeVisibleItem(Item* itemToRemove) {
 		visibleItems.erase(it);
 	}
 }
+
+//Room::~Room() {
+//	for (auto action : allActions) {
+//		delete action;
+//	}
+//}

@@ -92,5 +92,14 @@
     <ClInclude Include="ActionToggleFlashlight.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ActionInventory.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ActionUseKey.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Passkey4Digit.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

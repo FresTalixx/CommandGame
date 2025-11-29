@@ -41,4 +41,6 @@ public:
 	void removeAction(Action* action);
 
 	Inventory& getInventory();
+
+	/*~Player();*/
 };

@@ -19,7 +19,10 @@ public:
 	
 	void setDirection(const std::string& direction);
 
+	string getDirection() const;
+
 	
 
 	void execute(std::string& returnMessage) override;
+
 };

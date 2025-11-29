@@ -97,4 +97,6 @@ public:
 	void showHiddenThingsRoom(const bool& state);
 
 	bool getShowHiddenThingsRoom() const;
+
+	//~Room();
 };

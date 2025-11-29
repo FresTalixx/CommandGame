@@ -51,4 +51,6 @@ public:
 	}
 
 	virtual void onPlayerLeave() {};
+
+	virtual void onPlayerEnter() {};
 };

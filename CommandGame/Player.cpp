@@ -79,3 +79,9 @@ void Player::removeAction(Action* action) {
 		possibleActions.end()
 	);
 }
+
+//Player::~Player() {
+//	for (auto action : possibleActions) {
+//		delete action;
+//	}
+//}

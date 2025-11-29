@@ -137,9 +137,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ActionGo.h" />
+    <ClInclude Include="ActionInventory.h" />
     <ClInclude Include="ActionSystem.h" />
     <ClInclude Include="ActionTake.h" />
     <ClInclude Include="ActionToggleFlashlight.h" />
+    <ClInclude Include="ActionUseKey.h" />
     <ClInclude Include="consoleCommands.h" />
     <ClInclude Include="Flashlight.h" />
     <ClInclude Include="Game.h" />
@@ -147,6 +149,7 @@
     <ClInclude Include="Key.h" />
     <ClInclude Include="keyboardMenuControll.h" />
     <ClInclude Include="MapRenderer.h" />
+    <ClInclude Include="Passkey4Digit.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Room.h" />
     <ClInclude Include="Utils.h" />
